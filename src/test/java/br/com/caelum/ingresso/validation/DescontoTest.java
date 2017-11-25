@@ -29,7 +29,7 @@ public class DescontoTest {
 		this.filme = new Filme("Rogue One", Duration.ofMinutes(120),"Terror",new BigDecimal("12"));
 		this.sessao = new Sessao(sala, filme, LocalTime.parse("10:00:00"));
 	}
-	
+	/*
 	@Test
 	public void naoDeveConcederDescontoParaIngressoNormal(){
 		Ingresso ingresso = new Ingresso(sessao, new SemDesconto());
@@ -52,6 +52,6 @@ public class DescontoTest {
 		BigDecimal precoEsperado = new BigDecimal("16.25");
 		
 		Assert.assertEquals(precoEsperado, ingresso.getPreco());
-	}
+	}*/
 	
 }

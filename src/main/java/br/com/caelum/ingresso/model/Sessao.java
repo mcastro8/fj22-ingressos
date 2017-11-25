@@ -2,13 +2,17 @@ package br.com.caelum.ingresso.model;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Sessao {
@@ -26,6 +30,9 @@ public class Sessao {
 	private LocalTime horario;
 	
 	private BigDecimal preco;
+
+	@OneToMany(mappedBy = "sessao", fetch = FetchType.EAGER)
+	private Set<Ingresso> ingressos = new HashSet<>();
 	
 	/**
 	 * @deprecated
@@ -38,10 +45,15 @@ public class Sessao {
 		this.horario = h;
 		this.preco = s.getPreco().add(f.getPreco());
 	}
+
+	public boolean idDisponivel(Lugar lugarSelecionado) {
+		return ingressos.stream().map(Ingresso::getLugar).noneMatch(lugar -> lugar.equals(lugarSelecionado));
+	}
 	
 	public Sala getSala() {
 		return sala;
 	}
+	
 	public void setSala(Sala sala) {
 		this.sala = sala;
 	}
